@@ -6,7 +6,7 @@
 #    By: gajanvie <gajanvie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/08 12:07:31 by gajanvie          #+#    #+#              #
-#    Updated: 2026/10/08 12:51:57 by gajanvie         ###   ########.fr        #
+#    Updated: 2026/10/08 14:40:00 by gajanvie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,8 @@ import csv
 
 def load_csv(path):
 	"""lit le csv renvoie (cols, noms)
-
 	cols dict {nom_colonne: [cells str]}
-	noms list des noms ordre fichier
-	"""
+	noms list des noms ordre fichier"""
 	with open(path, newline="", encoding="utf-8") as f:
 		lecteur = csv.reader(f)
 		try:
@@ -93,9 +91,9 @@ def get_column_by_house(colonnes, nom_cours, nom_maison="Hogwarts House"):
 	return par_maison	
 
 # def get_all_by_house(colonnes, noms_cours, nom_maison="Hogwarts House"):
-#     """return {cours: {maison: [notes]}}"""
-#     return {cours: get_column_by_house(colonnes, cours, nom_maison)
-#             for cours in noms_cours}
+#	"""return {cours: {maison: [notes]}}"""
+#	return {cours: get_column_by_house(colonnes, cours, nom_maison)
+#			for cours in noms_cours}
 
 def get_all_by_house(colonnes, noms_cours, nom_maison="Hogwarts House"):
 	"""return {cours: {maison: [notes]}}"""
