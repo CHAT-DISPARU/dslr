@@ -6,7 +6,7 @@
 #    By: gajanvie <gajanvie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/09 14:19:49 by gajanvie          #+#    #+#              #
-#    Updated: 2026/10/09 14:28:28 by gajanvie         ###   ########.fr        #
+#    Updated: 2026/10/09 14:35:11 by gajanvie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,19 +66,26 @@ def points_par_maison(colonnes, numeriques, cours_a, cours_b, nom_maison="Hogwar
 	return resultat
 
 
-def tracer(points, cours_a, cours_b, r):
-	"""scatter plot de la paire"""
+def tracer_grille(colonnes, numeriques, classement, n_top=3):
+	"""top n paires + la moins correlee, dans une seule figure"""
+	choix = classement[:n_top] + [classement[-1]]
 	appliquer_style()
-	fig, ax = plt.subplots(figsize=(9, 6))
-	for maison, (xs, ys) in points.items():
-		ax.scatter(xs, ys, s=14, alpha=0.7, label=maison, color=COULEURS[maison])
-	ax.set_xlabel(cours_a)
-	ax.set_ylabel(cours_b)
-	ax.set_title(f"{cours_a} vs {cours_b}  (r = {r:.4f})")
-	leg = ax.legend()
+	fig, axes = plt.subplots(2, 2, figsize=(12, 9))
+	fig.suptitle("Paires de cours : des plus aux moins corrélées",
+				 fontsize=14, fontweight="bold", color=TEXTE)
+	for ax, (a, b, r) in zip([ax for l in axes for ax in l], choix):
+		points = points_par_maison(colonnes, numeriques, a, b)
+		for maison, (xs, ys) in points.items():
+			ax.scatter(xs, ys, s=8, alpha=0.6, color=COULEURS[maison], label=maison)
+		ax.set_xlabel(a)
+		ax.set_ylabel(b)
+		ax.set_title(f"r = {r:.3f}")
+	handles, labels = axes[0][0].get_legend_handles_labels()
+	leg = fig.legend(handles, labels, loc="lower center", ncol=4,
+					frameon=False, markerscale=2, fontsize=11)
 	for texte in leg.get_texts():
 		texte.set_color(TEXTE)
-	plt.tight_layout()
+	plt.tight_layout(rect=[0, 0.06, 1, 0.95])
 	plt.savefig("scatter_plot.png", dpi=150)
 	plt.show()
 
@@ -116,7 +123,7 @@ def main():
 	if not points:
 		print("Aucune maison dans ce fichier : utilise dataset_train.csv", file=sys.stderr)
 		sys.exit(1)
-	tracer(points, a, b, r)
+	tracer_grille(colonnes, numeriques, classement)
 
 
 if __name__ == "__main__":
