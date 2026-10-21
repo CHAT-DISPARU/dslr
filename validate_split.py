@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    validate_split.py                                  :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: CHAT-DISPARU <CHAT-DISPARU@student.42.f    +#+  +:+       +#+         #
+#    By: gajanvie <gajanvie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/21 11:42:02 by CHAT-DISPAR       #+#    #+#              #
-#    Updated: 2026/10/21 11:42:31 by CHAT-DISPAR      ###   ########.fr        #
+#    Updated: 2026/10/21 15:24:03 by gajanvie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,8 @@ from logreg_utils import (
 )
 
 LEARNING_RATE = 0.1
-ITERATIONS = 1000
-RATIO_TRAIN = 0.8
+ITERATIONS = 1
+RATIO_TRAIN = 0.01
 
 
 def argmax(valeurs):
@@ -49,7 +49,7 @@ def main():
 	maisons_col = colonnes["Hogwarts House"]
 	indices = [i for i, m in enumerate(maisons_col) if m.strip() != ""]
 
-	random.seed(42)
+	random.seed(12)
 	random.shuffle(indices)
 	coupe = int(len(indices) * RATIO_TRAIN)
 	idx_train, idx_val = indices[:coupe], indices[coupe:]

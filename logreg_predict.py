@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    logreg_predict.py                                  :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: CHAT-DISPARU <CHAT-DISPARU@student.42.f    +#+  +:+       +#+         #
+#    By: gajanvie <gajanvie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/21 11:37:24 by CHAT-DISPAR       #+#    #+#              #
-#    Updated: 2026/10/21 11:37:49 by CHAT-DISPAR      ###   ########.fr        #
+#    Updated: 2026/10/21 14:37:26 by gajanvie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

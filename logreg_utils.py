@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    logreg_utils.py                                    :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: CHAT-DISPARU <CHAT-DISPARU@student.42.f    +#+  +:+       +#+         #
+#    By: gajanvie <gajanvie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/21 11:18:50 by CHAT-DISPAR       #+#    #+#              #
-#    Updated: 2026/10/21 11:26:48 by CHAT-DISPAR      ###   ########.fr        #
+#    Updated: 2026/10/21 15:22:47 by gajanvie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
