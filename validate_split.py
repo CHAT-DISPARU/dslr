@@ -6,7 +6,7 @@
 #    By: gajanvie <gajanvie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/21 11:42:02 by CHAT-DISPAR       #+#    #+#              #
-#    Updated: 2026/10/23 10:05:22 by gajanvie         ###   ########.fr        #
+#    Updated: 2026/10/23 11:03:38 by gajanvie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ from lib.logreg_utils import (
 )
 
 LEARNING_RATE = 0.1
-ITERATIONS =3000
+ITERATIONS = 1000
 RATIO_TRAIN = 0.8
 EPOCHS = 100
 TAILLE_MINI_BATCH = 32
