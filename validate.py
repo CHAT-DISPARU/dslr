@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    validate.py                                        :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: CHAT-DISPARU <CHAT-DISPARU@student.42.f    +#+  +:+       +#+         #
+#    By: gajanvie <gajanvie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/21 11:40:03 by CHAT-DISPAR       #+#    #+#              #
-#    Updated: 2026/10/21 11:40:27 by CHAT-DISPAR      ###   ########.fr        #
+#    Updated: 2026/10/23 12:12:10 by gajanvie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ def matrice_confusion(predit, vrai, maisons):
 
 
 def afficher_confusion(matrice, maisons):
-	print(f"{'vrai \\ predit':<14}" + "".join(f"{m[:10]:>12}" for m in maisons))
+	print("vrai \\ predit".ljust(14) + "".join(f"{m[:10]:>12}" for m in maisons))
 	for v in maisons:
 		print(f"{v:<14}" + "".join(f"{matrice[v][p]:>12}" for p in maisons))
 

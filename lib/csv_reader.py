@@ -6,7 +6,7 @@
 #    By: gajanvie <gajanvie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/08 12:07:31 by gajanvie          #+#    #+#              #
-#    Updated: 2026/10/08 14:40:00 by gajanvie         ###   ########.fr        #
+#    Updated: 2026/10/23 12:14:36 by gajanvie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ import csv
 def load_csv(path):
 	"""lit le csv renvoie (cols, noms)
 	cols dict {nom_colonne: [cells str]}
-	noms list des noms ordre fichier"""
+	noms list des nom ordre fichier"""
 	with open(path, newline="", encoding="utf-8") as f:
 		lecteur = csv.reader(f)
 		try:
