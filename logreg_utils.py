@@ -6,11 +6,12 @@
 #    By: gajanvie <gajanvie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/21 11:18:50 by CHAT-DISPAR       #+#    #+#              #
-#    Updated: 2026/10/21 15:22:47 by gajanvie         ###   ########.fr        #
+#    Updated: 2026/10/23 09:55:49 by gajanvie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import math
+import random
 from csv_reader import valid_values
 from maths_utils import ft_mean, ft_std
 
@@ -122,4 +123,26 @@ def entrainer_une_maison(X, y, lr=0.1, iterations=1000):
 			theta[k] -= lr * grad[k]
 		if it % 50 == 0 or it == iterations - 1:
 			historique.append((it, calculer_cout(h, y)))
+	return theta, historique
+
+def entrainer_par_lots(X, y, lr=0.1, epochs=100, taille_batch=32, graine=42):
+	"""descente de gradient batch lots.
+	taille_batch = 1=SGD, k=mini-batch, len(X)=batch GD.
+	return (theta, historique)historique = [(epoch, cout)]"""
+	rng = random.Random(graine)
+	m = len(X)
+	theta = [0.0] * len(X[0])
+	indices = list(range(m))
+	historique = []
+	for epoch in range(epochs):
+		rng.shuffle(indices)
+		for debut in range(0, m, taille_batch):
+			lot = indices[debut:debut + taille_batch]
+			Xb = [X[i] for i in lot]
+			yb = [y[i] for i in lot]
+			h = predire_proba(Xb, theta)
+			grad = calculer_gradient(Xb, h, yb)
+			for k in range(len(theta)):
+				theta[k] -= lr * grad[k]
+		historique.append((epoch, calculer_cout(predire_proba(X, theta), y)))
 	return theta, historique

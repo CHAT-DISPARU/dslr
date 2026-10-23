@@ -6,7 +6,7 @@
 #    By: gajanvie <gajanvie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/08 14:39:52 by gajanvie          #+#    #+#              #
-#    Updated: 2026/10/08 14:51:29 by gajanvie         ###   ########.fr        #
+#    Updated: 2026/10/23 10:18:30 by gajanvie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,6 +99,52 @@ def ft_correlation(xs, ys):
 		return 0.0 #pas correlation
 	return cov / (var_x * var_y) ** 0.5
 
+def ft_variance(valeurs):
+	"""variance echantllon (n - 1)"""
+	return ft_std(valeurs) ** 2
+
+
+def ft_range(valeurs):
+	"""max - min"""
+	return ft_max(valeurs) - ft_min(valeurs)
+
+
+def ft_iqr(triees):
+	"""ecart interquartile : Q3 - Q1 liste doit trie"""
+	return ft_percentile(triees, 0.75) - ft_percentile(triees, 0.25)
+
+
+def ft_skewness(valeurs):
+	"""asymetrie : moyene des ((x - mu) / sigma)^3 sigma ave n"""
+	n = ft_count(valeurs)
+	mu = ft_mean(valeurs)
+	m2 = 0.0
+	m3 = 0.0
+	for v in valeurs:
+		m2 += (v - mu) ** 2
+		m3 += (v - mu) ** 3
+	m2 /= n
+	m3 /= n
+	if m2 == 0:
+		return 0.0
+	return m3 / m2 ** 1.5
+
+
+def ft_kurtosis(valeurs):
+	"""aplatissement (excess) : moyenne des ((x - mu) / sigma)^4 - 3"""
+	n = ft_count(valeurs)
+	mu = ft_mean(valeurs)
+	m2 = 0.0
+	m4 = 0.0
+	for v in valeurs:
+		m2 += (v - mu) ** 2
+		m4 += (v - mu) ** 4
+	m2 /= n
+	m4 /= n
+	if m2 == 0:
+		return 0.0
+	return m4 / m2 ** 2 - 3
+
 def describe_column(valeurs):
 	triees = ft_sort(valeurs)
 	return {
@@ -110,4 +156,14 @@ def describe_column(valeurs):
 		"50%": ft_percentile(triees, 0.50),
 		"75%": ft_percentile(triees, 0.75),
 		"Max": ft_max(valeurs),
+	}
+def describe_column_extra(valeurs):
+	"""statistiques bonus"""
+	triees = ft_sort(valeurs)
+	return {
+		"Var": ft_variance(valeurs),
+		"Range": ft_range(valeurs),
+		"IQR": ft_iqr(triees),
+		"Skew": ft_skewness(valeurs),
+		"Kurt": ft_kurtosis(valeurs),
 	}

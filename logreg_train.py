@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    logreg_train.py                                    :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: CHAT-DISPARU <CHAT-DISPARU@student.42.f    +#+  +:+       +#+         #
+#    By: gajanvie <gajanvie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/21 11:27:13 by CHAT-DISPAR       #+#    #+#              #
-#    Updated: 2026/10/21 12:17:26 by CHAT-DISPAR      ###   ########.fr        #
+#    Updated: 2026/10/23 09:55:46 by gajanvie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,17 +15,23 @@ import json
 from csv_reader import load_csv, get_numeric_columns
 from logreg_utils import (
 	FEATURES, MAISONS, calculer_parametres, construire_X,
-	encoder_y, entrainer_une_maison,
+	encoder_y, entrainer_une_maison, entrainer_par_lots,
 )
 
 LEARNING_RATE = 0.1
 ITERATIONS = 1000
+EPOCHS = 100
+TAILLE_MINI_BATCH = 32
 FICHIER_POIDS = "weights.json"
-
+MODES = ("batch", "sgd", "minibatch")
 
 def main():
-	if len(sys.argv) != 2:
-		print("Usage: python3 logreg_train.py <dataset_train.csv>", file=sys.stderr)
+	if len(sys.argv) not in (2, 3):
+		print("Usage: python3 logreg_train.py <dataset_train.csv> [batch|sgd|minibatch]", file=sys.stderr)
+		sys.exit(1)
+	mode = sys.argv[2] if len(sys.argv) == 3 else "batch"
+	if mode not in MODES:
+		print(f"Mode inconnu : {mode} (choix : {', '.join(MODES)})", file=sys.stderr)
 		sys.exit(1)
 	try:
 		colonnes, noms = load_csv(sys.argv[1])
@@ -58,7 +64,12 @@ def main():
 	poids = {}
 	for maison in MAISONS:
 		y = encoder_y(maisons_eleves, maison)
-		theta, historique = entrainer_une_maison(X, y, LEARNING_RATE, ITERATIONS)
+		if mode == "batch":
+			theta, historique = entrainer_une_maison(X, y, LEARNING_RATE, ITERATIONS)
+		elif mode == "sgd":
+			theta, historique = entrainer_par_lots(X, y, 0.01, EPOCHS, 1)
+		else:
+			theta, historique = entrainer_par_lots(X, y, LEARNING_RATE, EPOCHS, TAILLE_MINI_BATCH)
 		poids[maison] = theta
 		print(f"{maison:<12} cout initial {historique[0][1]:.4f} -> final {historique[-1][1]:.4f}")
 

@@ -6,22 +6,25 @@
 #    By: gajanvie <gajanvie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/21 11:42:02 by CHAT-DISPAR       #+#    #+#              #
-#    Updated: 2026/10/21 15:24:03 by gajanvie         ###   ########.fr        #
+#    Updated: 2026/10/23 10:05:22 by gajanvie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import sys
 import random
 from csv_reader import load_csv, get_numeric_columns
+from logreg_utils import entrainer_par_lots
 from logreg_utils import (
 	FEATURES, MAISONS, calculer_parametres, construire_X,
 	encoder_y, entrainer_une_maison, predire_proba,
 )
 
 LEARNING_RATE = 0.1
-ITERATIONS = 1
-RATIO_TRAIN = 0.01
-
+ITERATIONS =3000
+RATIO_TRAIN = 0.8
+EPOCHS = 100
+TAILLE_MINI_BATCH = 32
+MODES = ("batch", "sgd", "minibatch")
 
 def argmax(valeurs):
 	meilleur = 0
@@ -36,8 +39,12 @@ def sous_ensemble(numeriques, indices):
 
 
 def main():
-	if len(sys.argv) != 2:
-		print("Usage: python3 validate_split.py <dataset_train.csv>", file=sys.stderr)
+	if len(sys.argv) not in (2, 3):
+		print("Usage: python3 validate_split.py <dataset_train.csv> [batch|sgd|minibatch]", file=sys.stderr)
+		sys.exit(1)
+	mode = sys.argv[2] if len(sys.argv) == 3 else "batch"
+	if mode not in MODES:
+		print(f"Mode inconnu : {mode} (choix : {', '.join(MODES)})", file=sys.stderr)
 		sys.exit(1)
 	try:
 		colonnes, noms = load_csv(sys.argv[1])
@@ -49,7 +56,7 @@ def main():
 	maisons_col = colonnes["Hogwarts House"]
 	indices = [i for i, m in enumerate(maisons_col) if m.strip() != ""]
 
-	random.seed(12)
+	random.seed(42)
 	random.shuffle(indices)
 	coupe = int(len(indices) * RATIO_TRAIN)
 	idx_train, idx_val = indices[:coupe], indices[coupe:]
@@ -66,17 +73,36 @@ def main():
 	probas = []
 	for maison in MAISONS:
 		y = encoder_y(maisons_train, maison)
-		theta, _ = entrainer_une_maison(X_train, y, LEARNING_RATE, ITERATIONS)
+		if mode == "batch":
+			theta, hist = entrainer_une_maison(X_train, y, LEARNING_RATE, ITERATIONS)
+			print(maison, hist[-1][1])
+		elif mode == "sgd":
+			theta, _ = entrainer_par_lots(X_train, y, 0.01, EPOCHS, 1)
+		else:
+			theta, _ = entrainer_par_lots(X_train, y, LEARNING_RATE, EPOCHS, TAILLE_MINI_BATCH)
 		probas.append(predire_proba(X_val, theta))
-
 	bonnes = 0
 	for i in range(len(idx_val)):
 		scores = [probas[k][i] for k in range(len(MAISONS))]
 		if MAISONS[argmax(scores)] == vrai_val[i]:
 			bonnes += 1
+		else :
+			print(f"erreur : vrai={vrai_val[i]:<11} predit={MAISONS[argmax(scores)]}")
 	acc = bonnes / len(idx_val)
 	print(f"Accuracy validation : {acc * 100:.2f} %  ({'OK' if acc >= 0.98 else 'SOUS LES 98 %'})")
 
 
 if __name__ == "__main__":
 	main()
+
+
+
+# Gryffindor	0,48
+# Hufflepuff	0,49
+# Ravenclaw		0,53
+# Slytherin		0,50
+
+# Gryffindor	0,01
+# Hufflepuff	0,02
+# Ravenclaw		0,97
+# Slytherin		0,00
