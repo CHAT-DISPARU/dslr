@@ -13,8 +13,8 @@
 import sys
 import json
 import csv
-from csv_reader import load_csv, get_numeric_columns
-from logreg_utils import construire_X, predire_proba
+from lib.csv_reader import load_csv, get_numeric_columns
+from lib.logreg_utils import construire_X, predire_proba
 
 
 def argmax(valeurs):

@@ -11,8 +11,8 @@
 # **************************************************************************** #
 
 import sys
-from csv_reader import load_csv, get_numeric_columns, valid_values
-from maths_utils import describe_column, describe_column_extra
+from lib.csv_reader import load_csv, get_numeric_columns, valid_values
+from lib.maths_utils import describe_column, describe_column_extra
 
 LIGNES = ["Count", "Mean", "Std", "Min", "25%", "50%", "75%", "Max"]
 COURS_PAR_BLOC = 4

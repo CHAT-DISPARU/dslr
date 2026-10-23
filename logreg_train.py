@@ -12,8 +12,8 @@
 
 import sys
 import json
-from csv_reader import load_csv, get_numeric_columns
-from logreg_utils import (
+from lib.csv_reader import load_csv, get_numeric_columns
+from lib.logreg_utils import (
 	FEATURES, MAISONS, calculer_parametres, construire_X,
 	encoder_y, entrainer_une_maison, entrainer_par_lots,
 )

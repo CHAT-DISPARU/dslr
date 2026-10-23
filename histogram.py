@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    histogram.py                                       :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: CHAT-DISPARU <CHAT-DISPARU@student.42.f    +#+  +:+       +#+         #
+#    By: gajanvie <gajanvie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/08 17:17:44 by gajanvie          #+#    #+#              #
-#    Updated: 2026/10/21 13:01:32 by CHAT-DISPAR      ###   ########.fr        #
+#    Updated: 2026/10/23 10:48:02 by gajanvie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import sys
 import matplotlib.pyplot as plt
-from csv_reader import load_csv, get_numeric_columns, get_all_by_house
-from maths_utils import ft_mean, ft_std, ft_min, ft_max
-from plot_style import COULEURS, ACCENT, TEXTE, FOND_AXES, appliquer_style
+from lib.csv_reader import load_csv, get_numeric_columns, get_all_by_house
+from lib.maths_utils import ft_mean, ft_std, ft_min, ft_max
+from lib.plot_style import COULEURS, ACCENT, TEXTE, FOND_AXES, appliquer_style
 
 NB_BINS = 20
 
@@ -90,7 +90,6 @@ def main():
 	for texte in leg.get_texts():
 		texte.set_color(TEXTE)
 	plt.tight_layout(rect=[0, 0, 1, 0.96])
-	plt.savefig("histogram.png", dpi=150)
 	plt.show()
 
 

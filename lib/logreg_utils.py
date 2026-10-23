@@ -12,8 +12,8 @@
 
 import math
 import random
-from csv_reader import valid_values
-from maths_utils import ft_mean, ft_std
+from lib.csv_reader import valid_values
+from lib.maths_utils import ft_mean, ft_std
 
 FEATURES = [
 	"Herbology",

@@ -1,8 +1,8 @@
 import sys
 import matplotlib.pyplot as plt
-from csv_reader import load_csv, get_numeric_columns
-from maths_utils import ft_min, ft_max
-from plot_style import COULEURS, TEXTE, FOND_AXES, appliquer_style
+from lib.csv_reader import load_csv, get_numeric_columns
+from lib.maths_utils import ft_min, ft_max
+from lib.plot_style import COULEURS, TEXTE, FOND_AXES, appliquer_style
 
 NB_BINS = 15
 MAISONS = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"]
@@ -112,7 +112,6 @@ def main():
 		texte.set_color(TEXTE)
 
 	plt.tight_layout(rect=[0, 0.03, 1, 0.97])
-	plt.savefig("pair_plot.png", dpi=120)
 	plt.show()
 
 

@@ -6,18 +6,18 @@
 #    By: gajanvie <gajanvie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/23 10:05:47 by gajanvie          #+#    #+#              #
-#    Updated: 2026/10/23 10:05:53 by gajanvie         ###   ########.fr        #
+#    Updated: 2026/10/23 10:47:59 by gajanvie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import sys
 import matplotlib.pyplot as plt
-from csv_reader import load_csv, get_numeric_columns
-from logreg_utils import (
+from lib.csv_reader import load_csv, get_numeric_columns
+from lib.logreg_utils import (
 	FEATURES, calculer_parametres, construire_X, encoder_y,
 	entrainer_par_lots,
 )
-from plot_style import TEXTE, appliquer_style
+from lib.plot_style import TEXTE, appliquer_style
 
 MAISON = "Gryffindor"
 EPOCHS = 50
@@ -66,7 +66,6 @@ def main():
 	for t in leg.get_texts():
 		t.set_color(TEXTE)
 	plt.tight_layout()
-	plt.savefig("compare_optim.png", dpi=150)
 	plt.show()
 
 

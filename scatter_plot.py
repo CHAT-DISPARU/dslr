@@ -6,15 +6,15 @@
 #    By: gajanvie <gajanvie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/09 14:19:49 by gajanvie          #+#    #+#              #
-#    Updated: 2026/10/21 14:09:49 by gajanvie         ###   ########.fr        #
+#    Updated: 2026/10/23 10:48:05 by gajanvie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import sys
 import matplotlib.pyplot as plt
-from csv_reader import load_csv, get_numeric_columns
-from maths_utils import ft_correlation
-from plot_style import COULEURS, TEXTE, appliquer_style
+from lib.csv_reader import load_csv, get_numeric_columns
+from lib.maths_utils import ft_correlation
+from lib.plot_style import COULEURS, TEXTE, appliquer_style
 
 
 def paires_valides(xs, ys):
@@ -81,7 +81,6 @@ def tracer(colonnes, numeriques, a, b, r):
 	for texte in leg.get_texts():
 		texte.set_color(TEXTE)
 	plt.tight_layout()
-	plt.savefig("scatter_plot.png", dpi=150)
 	plt.show()
 
 def main():
