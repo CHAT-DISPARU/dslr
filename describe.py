@@ -6,7 +6,7 @@
 #    By: gajanvie <gajanvie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/08 14:52:59 by gajanvie          #+#    #+#              #
-#    Updated: 2026/10/23 11:02:55 by gajanvie         ###   ########.fr        #
+#    Updated: 2026/10/27 14:53:04 by gajanvie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ def main():
 	try:
 		colonnes, noms = load_csv(args[0])
 	except FileNotFoundError:
-		print(f"Fichier introuvable : {sys.argv[0]}", file=sys.stderr)
+		print(f"Fichier introuvable : {args[0]}", file=sys.stderr)
 		sys.exit(1)
 	except ValueError as e:
 		print(f"Erreur : {e}", file=sys.stderr)
